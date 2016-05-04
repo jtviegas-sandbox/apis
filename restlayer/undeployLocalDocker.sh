@@ -1,7 +1,7 @@
 #!/bin/sh
 
-APP_NAME=restlayer
+. ./VARS.sh
 
-docker stop $APP_NAME
+docker stop $CONTAINER
 sleep 6
-docker rm -f $APP_NAME
+docker rm -f $CONTAINER
