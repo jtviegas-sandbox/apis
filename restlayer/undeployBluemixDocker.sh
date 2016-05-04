@@ -1,7 +1,7 @@
 #!/bin/sh
 
-APP_NAME=restlayer
+. ./VARS.sh
 
-cf ic stop $APP_NAME
+cf ic stop $CONTAINER
 sleep 6
-cf ic rm -f $APP_NAME
+cf ic rm -f $CONTAINER

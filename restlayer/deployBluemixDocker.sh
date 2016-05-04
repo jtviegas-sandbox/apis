@@ -2,10 +2,6 @@
 
 . ./VARS.sh
 
-APP_NAME=restlayer
-WAR=$APP_NAME.war
-APP_IMG=$REGISTRY/$APP_NAME
-
 mvn clean package
 
 if [ ! -e target/$WAR ]
@@ -14,13 +10,19 @@ then
 	exit 1	
 fi
 
-docker build -t $APP_IMG .
-docker push $APP_IMG
+docker build -t $BX_IMG .
+docker push $BX_IMG
 
-cf ic run --name $APP_NAME -p $PORT -m $CONTAINER_MEMORY $APP_IMG
-
-cf ic ip bind $IP $APP_NAME
-
-curl -H "Content-Type: application/json" -d '{"msg":"ola carino"}' http://$IP:$PORT/$APP_NAME/api/echo
-
+cf ic run --name $CONTAINER -p $PORT -m $BX_CONTAINER_MEMORY $BX_IMG
+sleep 6
+cf ic ip bind $BX_IP $CONTAINER
+echo "checking containers loaded in bluemix..."
+cf ic ps
+sleep 24
+echo "...checking bluemix api with:"
+echo "curl -H 'Content-Type: application/json' -d '{\"msg\":\"ola carino\"}' http://$BX_IP:$BX_PORT/$APP/api/echo"
+echo "...outcome:"
+curl -H 'Content-Type: application/json' -d '{"msg":"ola carino"}' http://$BX_IP:$BX_PORT/$APP/api/echo
+echo ""
+echo "...done!"
 
