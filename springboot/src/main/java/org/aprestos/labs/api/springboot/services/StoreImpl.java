@@ -1,11 +1,11 @@
-package org.aprestos.labs.api.bootexpone.services;
+package org.aprestos.labs.api.springboot.services;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.aprestos.labs.api.bootexpone.model.Message;
+import org.aprestos.labs.api.springboot.model.Message;
 import org.springframework.stereotype.Service;
 
 @Service

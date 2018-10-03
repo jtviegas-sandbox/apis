@@ -1,9 +1,9 @@
-package org.aprestos.labs.api.bootexpone.resources;
+package org.aprestos.labs.api.springboot.resources;
 
 import java.util.List;
 
-import org.aprestos.labs.api.bootexpone.model.Message;
-import org.aprestos.labs.api.bootexpone.services.Store;
+import org.aprestos.labs.api.springboot.model.Message;
+import org.aprestos.labs.api.springboot.services.Store;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

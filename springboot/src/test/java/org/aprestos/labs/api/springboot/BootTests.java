@@ -1,8 +1,8 @@
-package org.aprestos.labs.api.bootexpone;
+package org.aprestos.labs.api.springboot;
 
 import java.util.List;
 
-import org.aprestos.labs.api.bootexpone.model.Message;
+import org.aprestos.labs.api.springboot.model.Message;
 import org.aprestos.labs.apiclient.RestClient;
 import org.junit.Assert;
 import org.junit.Test;
