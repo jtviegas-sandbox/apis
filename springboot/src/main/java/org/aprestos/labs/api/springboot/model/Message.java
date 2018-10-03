@@ -24,19 +24,19 @@ public class Message implements Serializable {
     this.text = text;
   }
 
-  protected String getId() {
+  public String getId() {
     return id;
   }
 
-  protected void setId(String id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  protected String getText() {
+  public String getText() {
     return text;
   }
 
-  protected void setText(String text) {
+  public void setText(String text) {
     this.text = text;
   }
 

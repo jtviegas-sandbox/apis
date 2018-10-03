@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
+@Import(org.aprestos.labs.datalayer.Boot.class)
 @EnableConfigurationProperties
 @EnableAutoConfiguration(exclude = { JacksonAutoConfiguration.class })
 @SpringBootApplication

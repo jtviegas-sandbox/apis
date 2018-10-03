@@ -21,5 +21,4 @@ spring:
 #      use-new-id-generator-mappings: false
 #      id:
 #        new-generator-mappings: false
-
-
+     

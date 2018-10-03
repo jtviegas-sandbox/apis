@@ -16,10 +16,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("!test")
-public class StoreImpl implements Store {
+@Profile("test")
+public class TestStoreImpl implements Store {
   
-  private static final Logger LOGGER = LoggerFactory.getLogger(StoreImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TestStoreImpl.class);
   
   @Autowired
   private DataService dataService;
@@ -31,6 +31,7 @@ public class StoreImpl implements Store {
     for( Data data: dataService.get() ) {
       messages.add(new Message(UUID.randomUUID().toString(), data.getDescription()));
     }
+
     LOGGER.trace("[getMessages|out]");
     return messages;
   }
