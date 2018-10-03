@@ -1,4 +1,4 @@
-package org.aprestos.labs.api.bootexpone.model;
+package org.aprestos.labs.api.springboot.model;
 
 import java.io.Serializable;
 

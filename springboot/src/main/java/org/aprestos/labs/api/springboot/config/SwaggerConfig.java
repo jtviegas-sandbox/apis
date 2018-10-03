@@ -1,4 +1,4 @@
-package org.aprestos.labs.api.bootexpone.config;
+package org.aprestos.labs.api.springboot.config;
 
 import static com.google.common.collect.Lists.newArrayList;
 
