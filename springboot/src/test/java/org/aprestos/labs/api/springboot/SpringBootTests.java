@@ -26,7 +26,6 @@ public class SpringBootTests {
   @Autowired
   private RestClient restClient;
   
-  
 	@Test
 	public void getMessages() {
 	  
@@ -42,7 +41,7 @@ public class SpringBootTests {
 	
 	@Test
   public void postMessages() {
-    
+	  
     MultiValueMap<String, String> header = restClient.getHeadersBuilder().build();
     Message message = new Message("", "olarilolela");
     

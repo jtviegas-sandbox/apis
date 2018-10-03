@@ -32,9 +32,15 @@ import io.swagger.annotations.ApiResponses;
     @ApiResponse(code = 500, message = "Internal server error", response = void.class) })
 public class Messages {
   private static final Logger logger = LoggerFactory.getLogger(Messages.class);
-
+  
+  private final Store store;
+  
+  public Messages(@Autowired Store store) {
+    this.store = store;
+  }
+/*  
   @Autowired
-  private Store store;
+ */
 
   @RequestMapping(method = RequestMethod.GET)
   @ApiOperation(value = "Used to retrieve messages", notes = "", response = Message.class, responseContainer = "List")
