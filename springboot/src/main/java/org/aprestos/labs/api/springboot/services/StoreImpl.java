@@ -6,11 +6,17 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.aprestos.labs.api.springboot.model.Message;
+import org.aprestos.labs.datalayer.services.DataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StoreImpl implements Store {
-
+  
+  
+  @Autowired
+  private DataService dataService;
+  
   public List<Message> getMessages() {
     List<Message> r = new ArrayList<Message>();
     final int n = 6;

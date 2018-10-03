@@ -20,7 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackages = { "org.aprestos.labs.api.bootexpone.resources" })
+@ComponentScan(basePackages = { "org.aprestos.labs.api.springboot.resources" })
 public class SwaggerConfig {
 
   @Bean
