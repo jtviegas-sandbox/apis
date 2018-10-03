@@ -1,6 +1,5 @@
 # apis
 
-restlayer: 	rest interface to be used as scaffolding;
+restlayer: 	jax-rs rest api scaffolding;
 
-bankaccount:	api test on bank accounts transfers
 
