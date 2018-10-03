@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: WARN
+    org.hibernate:
+      SQL: INFO
+  file: datalayer-test.log
+spring:
+  datasource:
+    username: DATALAYER
+    url: jdbc:oracle:thin:@localhost:1521/orcl
+    password: datalayer
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.Oracle12cDialect
+      hibernate.show_sql: true
+    hibernate:
+      ddl-auto: none
+#      use-new-id-generator-mappings: false
+#      id:
+#        new-generator-mappings: false
+     
