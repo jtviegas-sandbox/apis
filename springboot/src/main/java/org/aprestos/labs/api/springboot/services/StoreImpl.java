@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class StoreImpl implements Store {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(StoreImpl.class);
+
   
   @Autowired
   private DataService dataService;
