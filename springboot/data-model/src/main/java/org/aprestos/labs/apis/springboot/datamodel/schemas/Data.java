@@ -28,8 +28,8 @@ public class Data implements java.io.Serializable {
   @Column(name = "TS")
   private LocalDate timestamp;
 
-  public static Data of(String description, LocalDate timestamp) {
-    Data response = new Data();
+  public static Data create(final String description,final LocalDate timestamp) {
+    final Data response = new Data();
     response.setDescription(description);
     response.setTimestamp(timestamp);
     return response;

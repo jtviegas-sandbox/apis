@@ -10,12 +10,12 @@ public class Message2Data implements Function<Message, Data> {
 
 
   @Override
-  public Data apply(Message t) {
-    Data result = new Data();
+  public Data apply(final Message msg) {
+    final Data result = new Data();
     
-    result.setDescription(t.getText());
-    if( null != t.getId() )
-      result.setId(Long.parseLong(t.getId()));
+    result.setDescription(msg.getText());
+    if( null != msg.getId() )
+      result.setId(Long.parseLong(msg.getId()));
     
     result.setTimestamp(LocalDate.now());
     
