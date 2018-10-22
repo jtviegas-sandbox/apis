@@ -31,12 +31,11 @@
 		<commons.lang3.version>3.7</commons.lang3.version>
 		<dbunit.version>2.5.0</dbunit.version>
 		<sprint-test-dbunit.version>1.2.0</sprint-test-dbunit.version>
-		<spring.boot.version>${project.parent.version}</spring.boot.version>
 		<junit.version>4.12</junit.version>
 		<maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
 		<oracle.ojdbc.version>11.2.0.3</oracle.ojdbc.version>
 		<spring.data.oracle.version>1.2.1.RELEASE</spring.data.oracle.version>
-
+		<spring.boot.version>2.0.5.RELEASE</spring.boot.version>
 		<apiclient.version>0.0.1-SNAPSHOT</apiclient.version>
 	</properties>
 

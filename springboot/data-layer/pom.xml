@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
+	<parent>
 		<groupId>org.aprestos.labs.apis</groupId>
 		<artifactId>springboot</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-    
+
 	<artifactId>data-layer</artifactId>
 	<packaging>jar</packaging>
 	<name>data-layer</name>
@@ -38,6 +38,7 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
+
 		<!-- Oracle JDBC driver -->
 		<dependency>
 			<groupId>oracle.jdbc</groupId>
@@ -47,7 +48,7 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-oracle</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
