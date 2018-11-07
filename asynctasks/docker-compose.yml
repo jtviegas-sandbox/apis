@@ -1,0 +1,36 @@
+version: '2'
+services:
+  store:
+    image: knapsack-store:latest
+    container_name: store
+    environment:
+      - DEBUG_PORT=6001
+    ports:
+      - "8910:8910"
+      - "6001:6001"
+  core:
+    image: knapsack-core:latest
+    container_name: core
+    environment:
+      - DEBUG_PORT=6002
+    depends_on: 
+      - store
+    links:
+      - "store:store"
+    ports:
+      - "8920:8920"
+      - "6002:6002"
+  api:
+    image: knapsack-api:latest
+    container_name: api
+    environment:
+      - DEBUG_PORT=6003
+    depends_on: 
+      - store
+      - core
+    links:
+      - "store:store"
+      - "core:core"
+    ports:
+      - "6543:6543"
+      - "6003:6003"
