@@ -20,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+
 @ComponentScan(basePackages = { "org.aprestos.labs.apis.asynctasks.core.resources" })
 public class SwaggerConfig {
 
