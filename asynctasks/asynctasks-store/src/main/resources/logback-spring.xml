@@ -64,7 +64,7 @@
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
 		</root>
-		<logger name="org.challenges.maersk.knapsack.store" additivity="false" level="trace">
+		<logger name="org.aprestos.labs.apis.asynctasks.store" additivity="false" level="trace">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
 			<appender-ref ref="STDOUT" />
 		</logger>
@@ -76,7 +76,7 @@
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
 		</root>
-		<logger name="org.challenges.maersk.knapsack.store" additivity="false" level="info">
+		<logger name="org.aprestos.labs.apis.asynctasks.store" additivity="false" level="info">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
 		</logger>
 	</springProfile>

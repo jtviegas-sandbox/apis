@@ -1,4 +1,4 @@
-NAME=knapsack-core
+NAME=asynctasks-core
 IMG=$NAME
 IMG_VERSION=latest
 CONTAINER=$NAME
