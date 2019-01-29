@@ -11,11 +11,11 @@ import org.aprestos.labs.apis.asynctasks.common.model.SolutionWrapper;
 import org.aprestos.labs.apis.asynctasks.common.model.Task;
 import org.aprestos.labs.apis.asynctasks.common.model.TaskWrapper;
 import org.aprestos.labs.apis.asynctasks.common.model.TasksCollection;
-import org.aprestos.labs.apis.asynctasks.common.services.knapsack.Knapsack;
-import org.aprestos.labs.apis.asynctasks.common.services.knapsack.KnapsackException;
 import org.aprestos.labs.apis.asynctasks.common.services.notifier.StateNotFoundException;
 import org.aprestos.labs.apis.asynctasks.common.services.notifier.TaskStateManager;
 import org.aprestos.labs.apis.asynctasks.common.services.notifier.TaskStateManagerException;
+import org.aprestos.labs.apis.asynctasks.common.services.solver.Solver;
+import org.aprestos.labs.apis.asynctasks.common.services.solver.SolverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +45,9 @@ public class Tasks {
 	private static final long MILLI = 1000;
 
 	private final TaskStateManager notifier;
-	private final Knapsack knapsack;
+	private final Solver knapsack;
 
-	public Tasks(final @Autowired TaskStateManager notifier, final @Autowired Knapsack knapsack) {
+	public Tasks(final @Autowired TaskStateManager notifier, final @Autowired Solver knapsack) {
 		this.notifier = notifier;
 		this.knapsack = knapsack;
 	}
@@ -61,16 +61,16 @@ public class Tasks {
 		try {
 			TaskWrapper task = TaskWrapper.fromProblem(problemWrapper.getProblem());
 
-			task.getTask().getTimestamps().setSubmitted(System.currentTimeMillis() / MILLI);
+			task.getId().getTimestamps().setSubmitted(System.currentTimeMillis() / MILLI);
 			notifier.notify(task);
 			this.knapsack.submitTask(task);
 
 			MultiValueMap<String, String> header = new LinkedMultiValueMap<String, String>();
 			header.add("Content-Type", "application/json");
-			header.add("id", task.getTask().getTask());
-			return new ResponseEntity<Task>(task.getTask(), header, HttpStatus.CREATED);
+			header.add("id", task.getId().getId());
+			return new ResponseEntity<Task>(task.getId(), header, HttpStatus.CREATED);
 
-		} catch (KnapsackException | TaskStateManagerException e) {
+		} catch (SolverException | TaskStateManagerException e) {
 			LOGGER.error("something wrong when tryint to post a task", e);
 			throw new ApiException(e, HttpStatus.INTERNAL_SERVER_ERROR);
 		} finally {
@@ -89,7 +89,7 @@ public class Tasks {
 		try {
 			Optional<TaskWrapper> wrapper = notifier.getState(ident);
 			if (wrapper.isPresent())
-				task = wrapper.get().getTask();
+				task = wrapper.get().getId();
 			else
 				throw new ApiException(String.format("no task found with id %s", ident), HttpStatus.NOT_FOUND);
 

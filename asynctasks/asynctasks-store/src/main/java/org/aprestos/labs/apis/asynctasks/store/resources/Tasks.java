@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(value = "/knapsack/store")
+@RequestMapping(value = "/asynctasks/store")
 @Api(tags = { "tasks store api" }, value = "API root for tasks store")
 @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid status value", response = void.class),
 		@ApiResponse(code = 500, message = "Internal server error", response = void.class) })

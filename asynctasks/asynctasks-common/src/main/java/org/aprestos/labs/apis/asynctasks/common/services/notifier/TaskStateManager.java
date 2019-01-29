@@ -2,15 +2,16 @@ package org.aprestos.labs.apis.asynctasks.common.services.notifier;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Future;
 
-import org.aprestos.labs.apis.asynctasks.common.model.TaskWrapper;
+import org.aprestos.labs.apis.asynctasks.common.model.Status;
+import org.aprestos.labs.apis.asynctasks.common.model.Task;
 
 public interface TaskStateManager {
 
-	void notify(TaskWrapper state) throws TaskStateManagerException;
-
-	Optional<TaskWrapper> getState(String ident) throws StateNotFoundException, TaskStateManagerException;
-
-	Set<TaskWrapper> getStates() throws TaskStateManagerException;
+  Future<?> notify(Task task);
+	Future<?> notify(Status status);
+	Optional<Status> getStatus(String id) throws StateNotFoundException, TaskStateManagerException;
+	Set<Status> getStatuses() throws TaskStateManagerException;
 
 }

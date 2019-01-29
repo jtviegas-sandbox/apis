@@ -1,15 +1,23 @@
 package org.aprestos.labs.apis.asynctasks.core;
 
+import org.aprestos.labs.apis.asynctasks.common.services.notifier.TaskStateManager;
+import org.aprestos.labs.apis.asynctasks.core.solvers.KnapsackSolver;
+import org.aprestos.labs.apis.asynctasks.core.solvers.KnapsackSolverImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.context.WebApplicationContext;
 
-@ComponentScan(basePackages = { "org.aprestos.labs.apis.asynctasks.common.services" })
+
 @Import(org.aprestos.labs.apis.asynctasks.common.Boot.class)
+@ComponentScan(basePackages = { "org.aprestos.labs.apis.asynctasks.common.services.notifier" })
 @EnableAutoConfiguration
 @Configuration
 public class Config {
@@ -38,6 +46,12 @@ public class Config {
 		executor.initialize();
 		executor.setDaemon(true);
 		return executor;
+	}
+	
+	@Bean(name = "knapsackSolver")
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.INTERFACES)
+	public KnapsackSolver knapsackSolver(@Autowired TaskStateManager taskStateManager) {
+	  return new KnapsackSolverImpl(taskStateManager);
 	}
 
 }

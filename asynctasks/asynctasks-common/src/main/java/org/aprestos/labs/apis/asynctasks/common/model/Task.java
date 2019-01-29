@@ -1,7 +1,9 @@
 package org.aprestos.labs.apis.asynctasks.common.model;
 
 import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,80 +13,125 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Task implements Serializable {
 
-	@JsonIgnore
-	private static final AtomicInteger ID_GENERATOR = new AtomicInteger(0);
-	@JsonIgnore
-	private static final long serialVersionUID = 1L;
-	@NotNull
-	private final String task;
-	private TaskStatus status;
-	private Timestamps timestamps;
+  @JsonIgnore
+  private static final long serialVersionUID = 1L;
 
-	public Task() {
-		this.task = Integer.toString(ID_GENERATOR.incrementAndGet());
-	}
+  private String id;
 
-	public Task(String task) {
-		this.task = task;
-	}
+  @NotNull
+  private Map<String,Object> problem;
 
-	public String getTask() {
-		return task;
-	}
+  private Map<String,Object> solution;
 
-	public TaskStatus getStatus() {
-		return status;
-	}
+  private Map<Long, StatusType> statusMap;
 
-	public void setStatus(TaskStatus status) {
-		this.status = status;
-	}
+  public Task() { 
+    statusMap = new TreeMap<Long, StatusType>(new Comparator<Long>() {
+    @Override
+    public int compare(Long s1, Long s2) {
+      return s2.compareTo(s1);
+    }
+  });
+  }
 
-	public Timestamps getTimestamps() {
-		return timestamps;
-	}
 
-	public void setTimestamps(Timestamps timestamps) {
-		this.timestamps = timestamps;
-	}
+  public String getId() {
+    return id;
+  }
+  
+  public void setId(String id) {
+    this.id = id;
+  }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+  @JsonIgnore
+  public void addStatus(Status status) {
+    statusMap.put(status.getTimestamp(), status.getType());
+    setSolution(status.getSolution());
+  }
+  
+  @JsonIgnore
+  public Status getStatus() {
+    Status result = null;
+    if (!statusMap.entrySet().isEmpty()) {
+      Map.Entry<Long, StatusType> type = statusMap.entrySet().iterator().next();
+      result = new Status(id, type.getValue(), type.getKey(), solution);
+    }
+    return result;
+  }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((task == null) ? 0 : task.hashCode());
-		result = prime * result + ((timestamps == null) ? 0 : timestamps.hashCode());
-		return result;
-	}
+  public Map<String,Object> getSolution() {
+    return solution;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Task other = (Task) obj;
-		if (status != other.status)
-			return false;
-		if (task == null) {
-			if (other.task != null)
-				return false;
-		} else if (!task.equals(other.task))
-			return false;
-		if (timestamps == null) {
-			if (other.timestamps != null)
-				return false;
-		} else if (!timestamps.equals(other.timestamps))
-			return false;
-		return true;
-	}
+  public void setSolution(Map<String,Object> solution) {
+    this.solution = solution;
+  }
 
+  public Map<Long, StatusType> getStatusMap() {
+    return statusMap;
+  }
+
+  public void setStatusMap(Map<Long, StatusType> statusMap) {
+    this.statusMap = statusMap;
+  }
+
+  public Map<String,Object> getProblem() {
+    return problem;
+  }
+
+  public void setProblem(Map<String, Object> problem) {
+    this.problem = problem;
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
+  }
+
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((problem == null) ? 0 : problem.hashCode());
+    result = prime * result + ((solution == null) ? 0 : solution.hashCode());
+    result = prime * result + ((statusMap == null) ? 0 : statusMap.hashCode());
+    return result;
+  }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Task other = (Task) obj;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    if (problem == null) {
+      if (other.problem != null)
+        return false;
+    } else if (!problem.equals(other.problem))
+      return false;
+    if (solution == null) {
+      if (other.solution != null)
+        return false;
+    } else if (!solution.equals(other.solution))
+      return false;
+    if (statusMap == null) {
+      if (other.statusMap != null)
+        return false;
+    } else if (!statusMap.equals(other.statusMap))
+      return false;
+    return true;
+  }
+
+ 
 }

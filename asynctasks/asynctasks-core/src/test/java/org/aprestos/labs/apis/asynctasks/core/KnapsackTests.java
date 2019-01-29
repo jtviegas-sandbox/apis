@@ -1,15 +1,15 @@
 package org.aprestos.labs.apis.asynctasks.core;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.lang3.RandomUtils;
-import org.aprestos.labs.apis.asynctasks.common.model.Problem;
-import org.aprestos.labs.apis.asynctasks.common.model.TaskWrapper;
-import org.aprestos.labs.apis.asynctasks.common.services.knapsack.Knapsack;
-import org.aprestos.labs.apis.asynctasks.common.services.notifier.TaskStateManager;
+import org.aprestos.labs.apis.asynctasks.common.model.Task;
+import org.aprestos.labs.apis.asynctasks.core.solvers.KnapsackSolver;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class KnapsackCoreTests {
+public class KnapsackTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -36,27 +36,33 @@ public class KnapsackCoreTests {
 	private ObjectMapper jsonMapper;
 
 	@MockBean
-	private TaskStateManager taskStateManager;
+	private KnapsackSolver solver;
 
-	@MockBean
-	private Knapsack knapsack;
+/*	@MockBean
+	private Solver knapsack;*/
 
 	@Test
 	public void test_001_shouldAcceptTask() throws Exception {
+	  
+	  Map<String,Object> problem = new HashMap<String,Object>();
+	  problem.put("capacity", 60);
+	  problem.put("values", Arrays.asList(23.0,12.0,9.0,3.0));
+	  problem.put("weights", Arrays.asList(23,23,44,5));
+	  
+	  Task task = new Task();
+	  task.setProblem(problem);
+	  
+	  when(solver.submit(task)).thenReturn("1234567");
 
-		TaskWrapper expected = TaskWrapper.fromProblem(new Problem(RandomUtils.nextInt(1, 32),
-				Arrays.asList(RandomUtils.nextInt(1, 32), RandomUtils.nextInt(1, 32), RandomUtils.nextInt(1, 32)),
-				Arrays.asList(RandomUtils.nextDouble(1, 32), RandomUtils.nextDouble(1, 32), RandomUtils.nextDouble(1, 32))));
-
-		this.mockMvc.perform(post("/knapsack/core/task").contentType("application/json")
-				.content(jsonMapper.writeValueAsString(expected))).andExpect(status().isOk());
+		this.mockMvc.perform(post("/asynctasks/knapsack").contentType("application/json")
+				.content(jsonMapper.writeValueAsString(task))).andExpect(status().isOk());
 
 	}
 
 	@Test
 	public void test_002_shouldAcceptOnlyValidTasks() throws Exception {
 		String wrongJson = "{\"prop\": 1234}";
-		mockMvc.perform(post("/knapsack/core/task").contentType("application/json").content(wrongJson))
+		mockMvc.perform(post("/asynctasks/knapsack").contentType("application/json").content(wrongJson))
 				.andExpect(status().is(422));
 	}
 }

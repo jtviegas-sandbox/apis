@@ -14,12 +14,12 @@ import org.aprestos.labs.apis.asynctasks.common.model.Problem;
 import org.aprestos.labs.apis.asynctasks.common.model.ProblemWrapper;
 import org.aprestos.labs.apis.asynctasks.common.model.Solution;
 import org.aprestos.labs.apis.asynctasks.common.model.SolutionWrapper;
+import org.aprestos.labs.apis.asynctasks.common.model.StatusType;
 import org.aprestos.labs.apis.asynctasks.common.model.Task;
-import org.aprestos.labs.apis.asynctasks.common.model.TaskStatus;
 import org.aprestos.labs.apis.asynctasks.common.model.TaskWrapper;
 import org.aprestos.labs.apis.asynctasks.common.model.TasksCollection;
-import org.aprestos.labs.apis.asynctasks.common.services.knapsack.Knapsack;
 import org.aprestos.labs.apis.asynctasks.common.services.notifier.TaskStateManager;
+import org.aprestos.labs.apis.asynctasks.common.services.solver.Solver;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class KnapsackApiTests {
 	private TaskStateManager taskStateManager;
 
 	@MockBean
-	private Knapsack knapsack;
+	private Solver knapsack;
 
 	@Test
 	public void test_001_postShouldBeOkAndReturnId() throws Exception {
@@ -123,7 +123,7 @@ public class KnapsackApiTests {
 				.andExpect(status().isOk()).andReturn();
 		Task task = jsonMapper.readValue(result.getResponse().getContentAsString(), Task.class);
 		Assert.assertNotNull(task.getTimestamps().getSubmitted());
-		Assert.assertEquals(expected.getTask(), task);
+		Assert.assertEquals(expected.getId(), task);
 
 	}
 
@@ -144,7 +144,7 @@ public class KnapsackApiTests {
 				.andExpect(status().isCreated()).andReturn();
 		final String taskId = result.getResponse().getHeader("id");
 		TaskWrapper expectedTaskWrapper = TaskWrapper.fromProblem(problemWrapper.getProblem());
-		expectedTaskWrapper.getTask().setStatus(TaskStatus.completed);
+		expectedTaskWrapper.getId().setStatus(StatusType.completed);
 
 		Solution solution = new Solution(Arrays.asList(2.0, 3.0, 4.0), 125);
 		expectedTaskWrapper.setSolution(solution);
@@ -154,8 +154,8 @@ public class KnapsackApiTests {
 
 		when(taskStateManager.getState(taskId)).thenReturn(Optional.of(expectedTaskWrapper));
 
-		TaskStatus status = TaskStatus.submitted;
-		while (!status.equals(TaskStatus.completed)) {
+		StatusType status = StatusType.submitted;
+		while (!status.equals(StatusType.completed)) {
 			result = this.mockMvc.perform(get("/knapsack/tasks/{task-id}", taskId).contentType("application/json"))
 					.andExpect(status().isOk()).andReturn();
 			Task task = jsonMapper.readValue(result.getResponse().getContentAsString(), Task.class);
