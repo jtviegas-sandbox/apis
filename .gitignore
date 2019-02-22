@@ -6,3 +6,6 @@ target
 .log
 *.log
 .springBeans
+.idea/
+.DS_Store
+*.iml
