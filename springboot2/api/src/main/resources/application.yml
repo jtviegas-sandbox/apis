@@ -1,0 +1,6 @@
+server:
+  port: ${appPort:3001}
+
+
+
+
