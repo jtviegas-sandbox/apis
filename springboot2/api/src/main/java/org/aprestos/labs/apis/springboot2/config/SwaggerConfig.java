@@ -17,22 +17,8 @@ public class SwaggerConfig {
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
-            /*.securityContexts(securityContext())*/
             .useDefaultResponseMessages(false)
         .select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build();
   }
-
- /* private List<SecurityContext> securityContext() {
-    List<SecurityContext> r = new ArrayList<>();
-    r.add(SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.any()).build());
-    return r;
-  }
-
-  private List<SecurityReference> defaultAuth() {
-    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-    authorizationScopes[0] = authorizationScope;
-    return newArrayList(new SecurityReference("apikey", authorizationScopes));
-  }*/
 
 }
