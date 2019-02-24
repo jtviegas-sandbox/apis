@@ -1,7 +1,6 @@
 package org.aprestos.labs.apis.springboot2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.ApiResponse;
 import org.aprestos.labs.apis.springboot2.exceptions.ExceptionResponse;
 import org.aprestos.labs.apis.springboot2.model.dto.Message;
 import org.junit.Assert;
@@ -21,12 +20,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
-
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-public class MessagesTests {
+public class EchoTests {
 
   @Autowired
    private MockMvc mockMvc;
@@ -44,28 +41,28 @@ public class MessagesTests {
         message.setText("aaa");
         
         
-        MvcResult result = this.mockMvc.perform(post("/api/messages").accept("application/json")
+        MvcResult result = this.mockMvc.perform(post("/api/echo").accept("application/json")
                 .contentType("application/json")
             .content(jsonMapper.writeValueAsString(message)))
           .andDo(print()).andExpect(status().isOk()).andReturn();
 
-        Message outMsg = jsonMapper.readValue(result.getResponse().getContentAsString(), Message.class);
-        Assert.assertTrue(0 < Integer.parseInt(outMsg.getIdent()) );
+        Message response = jsonMapper.readValue(result.getResponse().getContentAsString(), Message.class);
+        Assert.assertEquals(message.getText(), response.getText());
 
     }
 
     @Test
-    public void validationControllerExceptionHandler() throws Exception {
+    public void validation() throws Exception {
 
         Message message = new Message();
         message.setText(null);
-        MvcResult result =  this.mockMvc.perform(post("/api/messages").accept("application/json")
+        MvcResult result =  this.mockMvc.perform(post("/api/echo").accept("application/json")
                 .contentType("application/json")
                 .content(jsonMapper.writeValueAsString(message)))
-                .andDo(print()).andExpect(status().is4xxClientError()).andReturn();
+                .andDo(print()).andExpect(status().isUnprocessableEntity()).andReturn();
 
-        Message response = jsonMapper.readValue(result.getResponse().getContentAsString(), Message.class);
-        Assert.assertEquals("text: must not be null", response.getText());
+        ExceptionResponse response = jsonMapper.readValue(result.getResponse().getContentAsString(), ExceptionResponse.class);
+        Assert.assertEquals("text: must not be null", response.getDetails());
     }
 
     @Test
@@ -78,5 +75,6 @@ public class MessagesTests {
                 .content(jsonMapper.writeValueAsString(message)))
                 .andDo(print()).andExpect(status().isInternalServerError()).andReturn();
     }
+
 
 }
