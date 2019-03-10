@@ -19,6 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -61,6 +62,8 @@ public class Messages {
         throw new ApiException("ohhh there is an error");
 
       message.setIdent( Integer.toString(idGenerator.incrementAndGet()) );
+      message.setTimestamp(new Date().getTime());
+
       MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
       header.add("Content-Type", "application/json");
 

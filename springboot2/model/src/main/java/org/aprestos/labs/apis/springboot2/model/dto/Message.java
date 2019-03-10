@@ -14,6 +14,8 @@ public class Message implements Serializable {
   @JsonProperty
   private String ident;
 
+  private Long timestamp;
+
   @JsonProperty
   @NotNull
   private String text;
