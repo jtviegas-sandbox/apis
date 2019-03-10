@@ -18,7 +18,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @EnableConfigurationProperties
-@SpringBootApplication(exclude = { JacksonAutoConfiguration.class })
+@SpringBootApplication
 public class Boot {
 
   @Autowired
