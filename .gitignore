@@ -6,6 +6,15 @@ target
 .log
 *.log
 .springBeans
-.idea/
 .DS_Store
+.idea
+*.iws
 *.iml
+*.ipr
+.apt_generated
+.springBeans
+.sts4-cache
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+HELP.md
+

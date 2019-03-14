@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
 import org.aprestos.labs.apis.springboot2.exceptions.ApiException;
-import org.aprestos.labs.apis.springboot2.model.dto.Message;
+import org.aprestos.labs.apis.springboot2.model.dto.MessageDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,35 +39,35 @@ public class Messages {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
-  public Message processValidationError(MethodArgumentNotValidException ex) {
+  public MessageDto processValidationError(MethodArgumentNotValidException ex) {
     StringBuilder sb = new StringBuilder();
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
 
     for (FieldError fieldError: fieldErrors)
       sb.append(String.format("%s: %s", fieldError.getField(), messageSource.getMessage(fieldError, Locale.ENGLISH)));
 
-    Message result =  new Message();
+    MessageDto result =  new MessageDto();
     result.setText(sb.toString());
     return result;
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  @ApiOperation(value = "Used to post a message", response = Message.class)
+  @ApiOperation(value = "Used to post a messageDto", response = MessageDto.class)
   @io.swagger.annotations.ApiResponses(value = {
-      @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Message.class) })
-  public ResponseEntity<Message> postMessage( @RequestBody @Valid Message message ) throws ApiException {
+      @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = MessageDto.class) })
+  public ResponseEntity<MessageDto> postMessage(@RequestBody @Valid MessageDto messageDto) throws ApiException {
     logger.trace("[postMessage] in");
     try {
-      if( message.getText().contains("error") )
+      if( messageDto.getText().contains("error") )
         throw new ApiException("ohhh there is an error");
 
-      message.setIdent( Integer.toString(idGenerator.incrementAndGet()) );
-      message.setTimestamp(new Date().getTime());
+      messageDto.setIdent( Integer.toString(idGenerator.incrementAndGet()) );
+      messageDto.setTimestamp(new Date().getTime());
 
       MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
       header.add("Content-Type", "application/json");
 
-      return new ResponseEntity<>(message, header, HttpStatus.OK);
+      return new ResponseEntity<>(messageDto, header, HttpStatus.OK);
     } finally {
       logger.trace("[postMessage] out");
     }

@@ -1,0 +1,23 @@
+package org.aprestos.labs.apis.springboot2.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
+@Data
+public class MessageDto implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  @JsonProperty
+  private String ident;
+
+  private Long timestamp;
+
+  @JsonProperty
+  @NotNull
+  private String text;
+
+}

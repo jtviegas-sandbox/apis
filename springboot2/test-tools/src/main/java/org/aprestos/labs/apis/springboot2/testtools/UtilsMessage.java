@@ -1,6 +1,4 @@
-# data-model
-java data access model
-package org.aprestos.labs.apis.springboot2.testutils;
+package org.aprestos.labs.apis.springboot2.testtools;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.aprestos.labs.apis.springboot2.model.dto.MessageDto;

@@ -21,7 +21,10 @@
 	<modules>
 		<module>build-tools</module>
 		<module>model</module>
+		<module>test-tools</module>
+		<module>store</module>
 		<module>api</module>
+		<module>batch</module>
 	</modules>
 
 	<properties>
