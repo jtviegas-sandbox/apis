@@ -19,12 +19,16 @@
 	<description>spring boot api project</description>
 
 	<modules>
-		<module>build-tools</module>
-		<module>model</module>
-		<module>test-tools</module>
-		<module>store</module>
+		<module>common/build-tools</module>
+		<module>common/model</module>
+		<module>common/test-tools</module>
+        <module>common/state-manager</module>
+		<module>common/solver-k</module>
+        <module>common/apiutils</module>
+		<module>common/store</module>
+		<module>store-api</module>
 		<module>api</module>
-		<module>batch</module>
+		<module>common/batch</module>
 	</modules>
 
 	<properties>
@@ -34,7 +38,7 @@
 		<java.version>1.8</java.version>
 		<springfox.swagger2.version>2.9.2</springfox.swagger2.version>
 		<commons.lang3.version>3.7</commons.lang3.version>
-		<spring.boot.version>2.1.3.RELEASE</spring.boot.version>
+		<spring.boot.version>2.1.4.RELEASE</spring.boot.version>
 		<junit.version>4.12</junit.version>
 		<maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
 		<hibernate.validator.version>6.0.11.Final</hibernate.validator.version>
