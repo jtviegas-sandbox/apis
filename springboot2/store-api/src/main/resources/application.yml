@@ -1,5 +1,9 @@
 server:
+<<<<<<< HEAD
   port: 8920
+=======
+  port: 7700
+>>>>>>> substantial refactoring of services
 logging:
   level:
     root: INFO
