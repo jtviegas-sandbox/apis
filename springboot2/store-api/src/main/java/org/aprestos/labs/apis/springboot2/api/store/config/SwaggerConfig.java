@@ -5,7 +5,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aprestos.labs.apis.springboot2.api.store.resources.Store;
+import org.aprestos.labs.apis.springboot2.api.store.resources.Tasks;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackageClasses = {Store.class})
+@ComponentScan(basePackageClasses = {Tasks.class})
 public class SwaggerConfig {
 
 	@Bean

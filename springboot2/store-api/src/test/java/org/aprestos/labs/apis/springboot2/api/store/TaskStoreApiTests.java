@@ -14,7 +14,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @AutoConfigureMockMvc
-public class StoreApiTests {
+public class TaskStoreApiTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,17 +38,19 @@ public class StoreApiTests {
 	@Autowired
 	private ObjectMapper jsonMapper;
 
+	private final String ENDPOINT_COLLECTIVE = "/store/task";
+	private final String ENDPOINT_SINGULAR = "/store/task/{task-id}";
 
 	@Test
 	public void test_001_all() throws Exception {
 
-		MvcResult response = this.mockMvc.perform(get("/store").accept("application/json"))
+		MvcResult response = this.mockMvc.perform(get(ENDPOINT_COLLECTIVE).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 		List<Task> tasks = jsonMapper.readValue(response.getResponse().getContentAsString(), new TypeReference<List<Task>>(){});
 		Assert.assertEquals(0, tasks.size());
 
 		Task expected = UtilsModel.createTask();
-		response = this.mockMvc.perform(post("/store").accept("application/json")
+		response = this.mockMvc.perform(post(ENDPOINT_COLLECTIVE).accept("application/json")
 				.contentType("application/json")
 				.content(jsonMapper.writeValueAsString(expected)))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
@@ -71,17 +72,17 @@ public class StoreApiTests {
 		Assert.assertEquals(expected, saved);
 		expected.getStatuses().add(new TaskState(System.currentTimeMillis(), TaskStatus.submitted));
 
-		response = this.mockMvc.perform(post("/store").accept("application/json")
+		response = this.mockMvc.perform(post(ENDPOINT_COLLECTIVE).accept("application/json")
 				.contentType("application/json")
 				.content(jsonMapper.writeValueAsString(expected)))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 
-		response = this.mockMvc.perform(get("/store").accept("application/json"))
+		response = this.mockMvc.perform(get(ENDPOINT_COLLECTIVE).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 		tasks = jsonMapper.readValue(response.getResponse().getContentAsString(), new TypeReference<List<Task>>(){});
 		Assert.assertEquals(1, tasks.size());
 
-		response = this.mockMvc.perform(get("/store/{task-id}",saved.getId()).accept("application/json"))
+		response = this.mockMvc.perform(get(ENDPOINT_SINGULAR,saved.getId()).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 		saved = jsonMapper.readValue(response.getResponse().getContentAsString(), Task.class);
 
@@ -97,12 +98,12 @@ public class StoreApiTests {
 				}, RandomUtils.nextLong(), RandomUtils.nextInt()
 		));
 
-		this.mockMvc.perform(post("/store").accept("application/json")
+		this.mockMvc.perform(post(ENDPOINT_COLLECTIVE).accept("application/json")
 				.contentType("application/json")
 				.content(jsonMapper.writeValueAsString(expected)))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 
-		response = this.mockMvc.perform(get("/store/{task-id}",saved.getId()).accept("application/json"))
+		response = this.mockMvc.perform(get(ENDPOINT_SINGULAR,saved.getId()).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 		saved = jsonMapper.readValue(response.getResponse().getContentAsString(), Task.class);
 
@@ -119,10 +120,10 @@ public class StoreApiTests {
 		Assert.assertEquals(expected, saved);
 
 
-		this.mockMvc.perform(delete("/store/{task-id}",saved.getId()).accept("application/json"))
+		this.mockMvc.perform(delete(ENDPOINT_SINGULAR,saved.getId()).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk());
 
-		response = this.mockMvc.perform(get("/store").accept("application/json"))
+		response = this.mockMvc.perform(get(ENDPOINT_COLLECTIVE).accept("application/json"))
 				.andDo(print()).andExpect(status().isOk()).andReturn();
 		tasks = jsonMapper.readValue(response.getResponse().getContentAsString(), new TypeReference<List<Task>>(){});
 		Assert.assertEquals(0, tasks.size());
@@ -134,19 +135,19 @@ public class StoreApiTests {
 	@Test
 	public void test_002_shouldAcceptOnlyValidTasks() throws Exception {
 		String wrongJson = "{\"prop\": 1234}";
-		mockMvc.perform(post("/store").contentType("application/json").content(wrongJson))
+		mockMvc.perform(post(ENDPOINT_COLLECTIVE).contentType("application/json").content(wrongJson))
 				.andExpect(status().is(422));
 	}
 
 	@Test
 	public void test_003_should404OnDeleteMissingId() throws Exception {
-		this.mockMvc.perform(delete("/store/{task-id}", RandomStringUtils.randomAscii(16)).accept("application/json"))
+		this.mockMvc.perform(delete(ENDPOINT_SINGULAR, RandomStringUtils.randomAscii(16)).accept("application/json"))
 				.andDo(print()).andExpect(status().isNotFound());
 	}
 
 	@Test
 	public void test_004_should404OnGetMissingId() throws Exception {
-		this.mockMvc.perform(get("/store/{task-id}",RandomStringUtils.randomAscii(16)).accept("application/json"))
+		this.mockMvc.perform(get(ENDPOINT_SINGULAR,RandomStringUtils.randomAscii(16)).accept("application/json"))
 				.andDo(print()).andExpect(status().isNotFound());
 	}
 }

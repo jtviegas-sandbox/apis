@@ -8,7 +8,6 @@ import org.aprestos.labs.apis.springboot2.model.dto.Task;
 import org.aprestos.labs.apis.springboot2.store.exceptions.MissingEntityException;
 import org.aprestos.labs.apis.springboot2.store.services.TaskStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,11 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/store")
+@RequestMapping(value = "/store/task")
 @Api(tags = { "taskStore api" }, value = "API root for taskStore facade")
 @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid status value"),
 		@ApiResponse(code = 500, message = "Internal server error") })
-public class Store {
+public class Tasks {
 
 	@Autowired
 	private TaskStore taskStore;
