@@ -7,6 +7,8 @@
 	<property name="FILE_LOG_PATTERN"
 		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
 	<property name="APP_NAME" value="store-api" />
+	<property name="APP_PACKAGE" value="org.aprestos.labs.apis.springboot2.api.store" />
+
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -65,7 +67,7 @@
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
 		</root>
-		<logger name="org.challenges.maersk.knapsack.core" additivity="false" level="trace">
+		<logger name="org.aprestos.labs.apis.springboot2.api.store" additivity="false" level="trace">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
 			<appender-ref ref="STDOUT" />
 		</logger>
@@ -77,7 +79,7 @@
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
 		</root>
-		<logger name="org.challenges.maersk.knapsack.core" additivity="false" level="info">
+		<logger name="org.aprestos.labs.apis.springboot2.api.store" additivity="false" level="info">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
 			<appender-ref ref="STDOUT" />
 		</logger>

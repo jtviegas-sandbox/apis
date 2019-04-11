@@ -11,10 +11,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-
+@SpringBootApplication(exclude={JacksonAutoConfiguration.class} )
 @EnableConfigurationProperties
 @Import({org.aprestos.labs.apis.springboot2.store.Boot.class})
-@SpringBootApplication(exclude={JacksonAutoConfiguration.class} )
 public class Boot {
 
 	public static void main(String[] args) {
