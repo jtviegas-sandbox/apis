@@ -22,12 +22,18 @@ public class UtilsModel {
 
     public static Task createTask(){
 
-        Task result = new Task(new Problem(RandomUtils.nextInt(),
+        Task result = new Task(createProblem());
+        return result;
+    }
+
+    public static Problem createProblem(){
+
+        Problem result = new Problem(RandomUtils.nextInt(24, 36),
                 new Item[]{
-                        new Item( RandomUtils.nextInt(), RandomUtils.nextInt())
-                        , new Item( RandomUtils.nextInt(), RandomUtils.nextInt())
-                        , new Item( RandomUtils.nextInt(), RandomUtils.nextInt())
-        }));
+                        new Item( RandomUtils.nextInt(12, 36), RandomUtils.nextInt(12, 36))
+                        , new Item( RandomUtils.nextInt(12, 36), RandomUtils.nextInt(12, 36))
+                        , new Item( RandomUtils.nextInt(12, 36), RandomUtils.nextInt(12, 36))
+                });
 
         return result;
     }

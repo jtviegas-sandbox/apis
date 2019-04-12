@@ -1,0 +1,11 @@
+server:
+  port: 7705
+spring:
+  application:
+    name: solver-api
+org.aprestos.labs.apis.springboot2.solver.k:
+  blocking-coefficient: 0.0
+org.aprestos.labs.apis.springboot2.statemanager.uri:
+  collective: http://store:7700/store/task
+  singular: http://store:7700/store/task/{task-id}
+

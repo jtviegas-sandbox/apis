@@ -35,7 +35,7 @@ public class RoundtripIntegrationTest {
 	@Autowired
 	private ObjectMapper jsonMapper;
 
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.state}")
+	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.collective}")
 	private String stateUri;
 
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-@ComponentScan(basePackageClasses = {StateManagerConfig.class})
+@ComponentScan(basePackageClasses = {StateManagerConfig.class}, basePackages = {"org.aprestos.labs.apis.springboot2.solver.k"})
 @EnableAutoConfiguration
 @Configuration
 public class Config {

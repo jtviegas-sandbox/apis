@@ -27,6 +27,7 @@
         <module>common/apiutils</module>
 		<module>common/store</module>
 		<module>store-api</module>
+		<module>solver-api</module>
 		<module>api</module>
 		<module>common/batch</module>
 	</modules>

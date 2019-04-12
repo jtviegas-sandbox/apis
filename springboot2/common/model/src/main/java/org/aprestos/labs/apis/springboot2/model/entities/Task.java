@@ -12,7 +12,6 @@ import java.util.List;
 public class Task implements Serializable  {
 
     @Id
-/*    @GeneratedValue(strategy = GenerationType.AUTO)*/
     private String ident;
 
     @OneToMany(cascade = CascadeType.ALL)

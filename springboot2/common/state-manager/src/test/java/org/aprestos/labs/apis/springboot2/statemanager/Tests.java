@@ -37,7 +37,7 @@ public class Tests {
 	@MockBean
 	private RestClient client;
 
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.state}")
+	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.collective}")
 	private String stateUri;
 
 

@@ -82,7 +82,7 @@ public class SolverTask implements Runnable {
 		final long end = System.currentTimeMillis();
 		final long time = (end - start);
 		final Solution solution = new Solution(itemsSolution.toArray(new Item[itemsSolution.size()]), time, matrix[items.length][capacity]);
-		log.info("[run] task:{} solution took {}s and is: {}", task.getId(), time, solution);
+		log.info("[run] task:{} solution took {}ms and is: {}", task.getId(), time, solution);
 		task.setSolution(solution);
 		task.getStatuses().add(new TaskState(end, TaskStatus.completed));
 		stateManager.notify(task);
