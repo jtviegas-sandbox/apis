@@ -1,7 +1,7 @@
-package org.aprestos.labs.apis.springboot2;
+package org.aprestos.labs.apis.springboot2.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aprestos.labs.apis.springboot2.exceptions.ExceptionResponse;
+import org.aprestos.labs.apis.springboot2.api.exceptions.ExceptionResponse;
 import org.aprestos.labs.apis.springboot2.model.dto.MessageDto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-
+@ActiveProfiles("test")
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc

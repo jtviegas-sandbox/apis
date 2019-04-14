@@ -1,5 +1,6 @@
-package org.aprestos.labs.apis.springboot2.config;
+package org.aprestos.labs.apis.springboot2.api.config;
 
+import org.aprestos.labs.apis.springboot2.api.resources.Controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackages = { "org.aprestos.labs.apis.springboot2.resources" })
+@ComponentScan(basePackageClasses = {Controller.class})
 public class SwaggerConfig {
 
   @Bean

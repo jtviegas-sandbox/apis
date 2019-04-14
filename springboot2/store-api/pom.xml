@@ -164,6 +164,17 @@
 			<version>${project.parent.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- ########## azure stuff ########## -->
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-core</artifactId>
+		</dependency>
+
 	</dependencies>
 
 

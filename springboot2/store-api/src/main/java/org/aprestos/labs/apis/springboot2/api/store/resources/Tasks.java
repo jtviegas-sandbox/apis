@@ -52,8 +52,7 @@ public class Tasks {
 
 	@RequestMapping(value = "/{task-id}", method = RequestMethod.GET)
 	@ApiOperation(value = "Used to get a specific task")
-	@io.swagger.annotations.ApiResponses(value = {
-			@ApiResponse(code = 200, message = "successful operation", response = Task.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation", response = Task.class)
 	, @ApiResponse(code = 404, message = "not found")})
 	public ResponseEntity<Task> getTask(@Valid @NotNull @ApiParam(required = true) @PathVariable("task-id") String taskId)
 			throws ApiException {

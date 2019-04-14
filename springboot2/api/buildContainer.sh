@@ -9,10 +9,10 @@ parent_folder=$(dirname $this_folder)
 echo "going to build image $IMG"
 
 _pwd=`pwd`
-cd $parent_folder
-mvn clean install
 cd $this_folder
+mvn clean install
 docker rmi $IMG:$IMG_VERSION
+#mvn clean install
 docker build -t $IMG .
 docker tag $IMG $DOCKER_HUB_IMG
 docker push $DOCKER_HUB_IMG

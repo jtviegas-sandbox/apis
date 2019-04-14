@@ -7,7 +7,8 @@ parent_folder=$(dirname $this_folder)
 . $this_folder/include.sh
 
 echo "going to run container from image $IMG"
+secret_key=`cat SECRET`
 docker rm $CONTAINER
-docker run -d --name $CONTAINER -p $PORT:$PORT $IMG:$IMG_VERSION
+docker run -d --name $CONTAINER --env APPLICATION_INSIGHTS_IKEY=$secret_key  -p $PORT:$PORT $IMG:$IMG_VERSION
 
 echo "... done."

@@ -32,13 +32,6 @@ public class RoundtripIntegrationTest {
 	@Autowired
 	private StateManager<String, Task, TaskStatus> manager;
 
-	@Autowired
-	private ObjectMapper jsonMapper;
-
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.collective}")
-	private String stateUri;
-
-
 	@Test
 	public void test_dumbOne() throws Exception {
 

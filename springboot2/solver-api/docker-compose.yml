@@ -5,6 +5,8 @@ services:
     container_name: store
     environment:
       - DEBUG_PORT=7600
+      - PORT=7700
+      - APPLICATION_INSIGHTS_IKEY=${APPLICATION_INSIGHTS_IKEY}
     ports:
       - "7700:7700"
       - "7600:7600"
@@ -13,6 +15,8 @@ services:
     container_name: solver
     environment:
       - DEBUG_PORT=7605
+      - PORT=7705
+      - APPLICATION_INSIGHTS_IKEY=${APPLICATION_INSIGHTS_IKEY}
     depends_on:
       - store
     links:

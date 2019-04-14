@@ -14,7 +14,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 public class Config {
 
 
-	@Value("${org.aprestos.labs.apis.springboot2.solver.k.blocking-coefficient}")
+	@Value("${org.aprestos.labs.apis.springboot2.solver.blocking-coefficient}")
 	private double blockingCoefficient;
 
 	@Bean

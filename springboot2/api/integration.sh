@@ -16,13 +16,16 @@ EOM
 [ -z $1 ] && { usage; }
 [ "$1" != "start" -a "$1" != "stop" ] && { usage; }
 
-echo "going to $1 the store api container..."
+. $this_folder/include.sh
+
+echo "going to $1 the $NAME container..."
 
 if [ "$1" == "start" ]
 then
     $parent_folder/store-api/buildContainer.sh
+    $parent_folder/solver-api/buildContainer.sh
     $this_folder/buildContainer.sh
-    secret_key=`cat SECRET`
+    secret_key=`cat $this_folder/SECRET`
     export APPLICATION_INSIGHTS_IKEY=$secret_key
     docker-compose -f $this_folder/docker-compose.yml up -d
     echo "...waiting for the api to load..."

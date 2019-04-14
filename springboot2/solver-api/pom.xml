@@ -167,8 +167,18 @@
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
 			<artifactId>unirest-java</artifactId>
-			<version>1.4.9</version>
+			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-core</artifactId>
+		</dependency>
+
 	</dependencies>
 
 
@@ -229,11 +239,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${maven.pmd.plugin.version}</version>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -253,7 +258,7 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>integration.sh</executable>
+									<executable>${project.basedir}/integration.sh</executable>
 									<arguments>
 										<argument>start</argument>
 									</arguments>
@@ -266,7 +271,7 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>integration.sh</executable>
+									<executable>${project.basedir}/integration.sh</executable>
 									<arguments>
 										<argument>stop</argument>
 									</arguments>

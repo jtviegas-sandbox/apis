@@ -51,6 +51,7 @@
 		<javax.json.version>1.1</javax.json.version>
 		<yasson.version>1.0</yasson.version>
 		<javaee.api.version>8.0</javaee.api.version>
+		<unirest.version>1.4.9</unirest.version>
 	</properties>
 
 
@@ -85,6 +86,11 @@
 
 
 			<!-- OTHER 3RD PARTY -->
+			<dependency>
+				<groupId>com.mashape.unirest</groupId>
+				<artifactId>unirest-java</artifactId>
+				<version>${unirest.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
@@ -137,6 +143,19 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring.boot.version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<!-- AZURE -->
+
+			<dependency>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>applicationinsights-web</artifactId>
+				<version>[2.0,)</version>
+			</dependency>
+			<dependency>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>applicationinsights-core</artifactId>
+				<version>[2.0,)</version>
 			</dependency>
 
 		</dependencies>
