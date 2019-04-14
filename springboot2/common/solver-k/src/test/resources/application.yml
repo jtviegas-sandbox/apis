@@ -1,10 +1,6 @@
-server:
-  port: ${PORT:7705}
-spring:
-  application:
-    name: solver-api
 org.aprestos.labs.apis.springboot2.solver:
   blocking-coefficient: ${BLOCKING_COEFFICIENT:0.0}
+### for the state manager  ###
 org.aprestos.labs.apis.springboot2.uri.store:
   scheme: ${STORE_URI_SCHEME:http}
   host: ${STORE_URI_HOST:store}

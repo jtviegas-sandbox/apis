@@ -1,9 +1,9 @@
-package org.aprestos.labs.apis.springboot2.resources;
+package org.aprestos.labs.apis.springboot2.api.resources;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
-import org.aprestos.labs.apis.springboot2.exceptions.ApiException;
+import org.aprestos.labs.apis.springboot2.api.exceptions.ApiException;
 import org.aprestos.labs.apis.springboot2.model.dto.MessageDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

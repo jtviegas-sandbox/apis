@@ -1,6 +1,5 @@
 package org.aprestos.labs.apis.springboot2.statemanager;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aprestos.labs.apiclient.HeadersBuilder;
 import org.aprestos.labs.apiclient.RestClient;
 import org.aprestos.labs.apis.springboot2.model.dto.Item;
@@ -20,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import static java.lang.String.format;
 import static org.mockito.Mockito.doAnswer;
 
 @SpringBootTest
@@ -31,14 +31,22 @@ public class Tests {
 	@Autowired
 	private StateManager<String, Task, TaskStatus> manager;
 
-	@Autowired
-	private ObjectMapper jsonMapper;
 
 	@MockBean
 	private RestClient client;
 
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.collective}")
-	private String stateUri;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.scheme}")
+	private String storeScheme;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.host}")
+	private String storeHost;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.port}")
+	private String storePort;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.path}")
+	private String storePath;
+
+	private String getStoreEndpointSingular(){
+		return format("%s://%s:%s%s/{task-id}", storeScheme, storeHost, storePort, storePath);
+	}
 
 
 	@Test
@@ -55,7 +63,7 @@ public class Tests {
 		Task task = new Task(problem);
 
 		doAnswer((o) -> HeadersBuilder.create() ).when(client).getHeadersBuilder();
-		doAnswer((o) -> null ).when(client).post(task, header, stateUri);
+		doAnswer((o) -> null ).when(client).post(task, header, getStoreEndpointSingular());
 
 		manager.notify(task);
 

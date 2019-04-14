@@ -100,7 +100,7 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>storeApi.sh</executable>
+									<executable>${project.basedir}/storeApi.sh</executable>
 									<arguments>
 										<argument>start</argument>
 									</arguments>
@@ -113,7 +113,7 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>storeApi.sh</executable>
+									<executable>${project.basedir}/storeApi.sh</executable>
 									<arguments>
 										<argument>stop</argument>
 									</arguments>

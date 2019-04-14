@@ -1,5 +1,5 @@
 server:
-  port: 7700
+  port: ${PORT:7700}
 spring:
   application:
     name: store-api

@@ -13,6 +13,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.lang.String.format;
+
 @Service
 @Slf4j
 public class StateManagerImpl<I,O,S> implements org.aprestos.labs.apis.springboot2.statemanager.StateManager<I,O,S> {
@@ -20,17 +22,29 @@ public class StateManagerImpl<I,O,S> implements org.aprestos.labs.apis.springboo
 	@Autowired
 	private RestClient client;
 
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.collective}")
-	private String collectiveUri;
-	@Value("${org.aprestos.labs.apis.springboot2.statemanager.uri.singular}")
-	private String singularUri;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.scheme}")
+	private String storeScheme;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.host}")
+	private String storeHost;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.port}")
+	private String storePort;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store.path}")
+	private String storePath;
+
+	private String getStoreEndpointSingular(){
+		return format("%s://%s:%s%s/{task-id}", storeScheme, storeHost, storePort, storePath);
+	}
+
+	private String getStoreEndpointCollective(){
+		return format("%s://%s:%s%s", storeScheme, storeHost, storePort, storePath);
+	}
 
 	@Override
 	public void notify(O state) throws org.aprestos.labs.apis.springboot2.statemanager.StateManagerException {
 		log.trace("[notify|in] state: {}", state);
 		try {
 			MultiValueMap<String, String> header = client.getHeadersBuilder().build();
-			client.post(state, header, collectiveUri);
+			client.post(state, header, getStoreEndpointCollective());
 			log.info("[notify] posted status: {}", state);
 		} catch (Exception e) {
 			throw new org.aprestos.labs.apis.springboot2.statemanager.StateManagerException(e);
@@ -46,7 +60,7 @@ public class StateManagerImpl<I,O,S> implements org.aprestos.labs.apis.springboo
 		try {
 			MultiValueMap<String, String> header = client.getHeadersBuilder().build();
 			result = client.get(new ParameterizedTypeReference<S>() {
-			}, header, singularUri, null, id);
+			}, header, getStoreEndpointSingular(), null, id);
 			return result;
 		} catch (HttpClientErrorException hce) {
 			if (hce.getStatusCode().equals(HttpStatus.NOT_FOUND))
@@ -67,7 +81,7 @@ public class StateManagerImpl<I,O,S> implements org.aprestos.labs.apis.springboo
 		try {
 			MultiValueMap<String, String> header = client.getHeadersBuilder().build();
 			result = client.get(new ParameterizedTypeReference<Map<Long,S>>() {
-			}, header, collectiveUri, null, (Object) null).get();
+			}, header, getStoreEndpointCollective(), null, (Object) null).get();
 			return result;
 		} catch (Exception e) {
 			throw new org.aprestos.labs.apis.springboot2.statemanager.StateManagerException(e);
@@ -83,7 +97,7 @@ public class StateManagerImpl<I,O,S> implements org.aprestos.labs.apis.springboo
 		try {
 			MultiValueMap<String, String> header = client.getHeadersBuilder().build();
 			result = client.get(new ParameterizedTypeReference<O>() {
-			}, header, singularUri, null, id);
+			}, header, getStoreEndpointSingular(), null, id);
 			return result;
 		} catch (HttpClientErrorException hce) {
 			if (hce.getStatusCode().equals(HttpStatus.NOT_FOUND))

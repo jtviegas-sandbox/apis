@@ -1,4 +1,4 @@
-package org.aprestos.labs.apis.springboot2.exceptions;
+package org.aprestos.labs.apis.springboot2.api.exceptions;
 
 import lombok.Data;
 

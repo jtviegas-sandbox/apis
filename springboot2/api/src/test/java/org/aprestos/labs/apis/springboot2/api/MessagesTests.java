@@ -1,7 +1,7 @@
-package org.aprestos.labs.apis.springboot2;
+package org.aprestos.labs.apis.springboot2.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aprestos.labs.apis.springboot2.exceptions.ExceptionResponse;
+import org.aprestos.labs.apis.springboot2.api.exceptions.ExceptionResponse;
 import org.aprestos.labs.apis.springboot2.model.dto.MessageDto;
 import org.junit.Assert;
 import org.junit.Test;
