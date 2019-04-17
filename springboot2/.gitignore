@@ -1,3 +1,4 @@
 *.log*.gz
 *.log*.tmp
 SECRET
+azure_service_principal.json

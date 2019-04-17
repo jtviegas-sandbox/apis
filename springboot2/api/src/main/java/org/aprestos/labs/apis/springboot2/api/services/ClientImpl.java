@@ -26,30 +26,17 @@ public class ClientImpl implements Client {
     @Autowired
     private com.fasterxml.jackson.databind.ObjectMapper jsonMapper;
 
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.solver.scheme}")
-    private String solverScheme;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.solver.host}")
-    private String solverHost;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.solver.port}")
-    private String solverPort;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.solver.path}")
-    private String solverPath;
-
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.store.scheme}")
-    private String storeScheme;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.store.host}")
-    private String storeHost;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.store.port}")
-    private String storePort;
-    @Value("${org.aprestos.labs.apis.springboot2.api.uris.store.path}")
-    private String storePath;
+    @Value("${org.aprestos.labs.apis.springboot2.uri.solver}")
+    private String solverUri;
+    @Value("${org.aprestos.labs.apis.springboot2.uri.store}")
+    private String storeUri;
 
     private String getSolverEndpoint(){
-        return format("%s://%s:%s%s", solverScheme, solverHost, solverPort, solverPath);
+        return solverUri;
     }
 
     private String getStoreEndpoint(){
-        return format("%s://%s:%s%s", storeScheme, storeHost, storePort, storePath);
+        return storeUri;
     }
 
     public ClientImpl(){

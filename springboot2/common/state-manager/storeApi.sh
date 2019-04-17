@@ -4,8 +4,8 @@ this_folder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 parent_folder=$(dirname $this_folder)
 grand_parent_folder=$(dirname $parent_folder)
 
-START_SCRIPT=$grand_parent_folder/store-api/runContainer.sh
-STOP_SCRIPT=$grand_parent_folder/store-api/stopContainer.sh
+START_SCRIPT=$grand_parent_folder/store-api/devops/docker/runContainer.sh
+STOP_SCRIPT=$grand_parent_folder/store-api/devops/docker/stopContainer.sh
 
 usage()
 {

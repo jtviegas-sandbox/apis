@@ -60,7 +60,7 @@
     	<appender-ref ref="TRACE_FILE"/>
 	</appender>
 	<appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
-		<instrumentationKey>1393181f-9b20-4bd8-8443-f6e786e0023d</instrumentationKey>
+		<instrumentationKey>XPTOXPTO</instrumentationKey>
 	</appender>
 
 	<springProfile name="default, test">

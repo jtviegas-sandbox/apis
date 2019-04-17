@@ -10,5 +10,5 @@ spring:
     hibernate:
       ddl-auto: create-drop
 azure:
-  instrumentation:
-    key: ${APPLICATION_INSIGHTS_IKEY:idontknow}
+  application-insights:
+    instrumentation-key: ${APPLICATION_INSIGHTS_IKEY:idontknow}

@@ -20,9 +20,9 @@ echo "going to $1 the store api container..."
 
 if [ "$1" == "start" ]
 then
-    $parent_folder/store-api/buildContainer.sh
-    $this_folder/buildContainer.sh
-    secret_key=`cat SECRET`
+    $parent_folder/store-api/devops/docker/buildContainer.sh
+    $this_folder/devops/docker/buildContainer.sh
+    secret_key=`cat $parent_folder/devops/SECRET`
     export APPLICATION_INSIGHTS_IKEY=$secret_key
     docker-compose -f $this_folder/docker-compose.yml up -d
     echo "...waiting for the api to load..."

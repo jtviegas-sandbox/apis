@@ -36,6 +36,16 @@
 		<global.version>0.0.1-SNAPSHOT</global.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- azure related -->
+		<azure.app.group>aprestos-apis</azure.app.group>
+		<azure.resourceGroup>aprestos-apis-springboot2</azure.resourceGroup>
+		<azure.region>westeurope</azure.region>
+		<azure.containerRegistry>aprestos</azure.containerRegistry>
+		<azure.docker.image.prefix>${azure.containerRegistry}.azurecr.io</azure.docker.image.prefix>
+		<maven.build.timestamp.format>yyyyMMddHHmmssSSS</maven.build.timestamp.format>
+
+		<!-- versions -->
 		<java.version>1.8</java.version>
 		<springfox.swagger2.version>2.9.2</springfox.swagger2.version>
 		<commons.lang3.version>3.7</commons.lang3.version>
@@ -52,6 +62,7 @@
 		<yasson.version>1.0</yasson.version>
 		<javaee.api.version>8.0</javaee.api.version>
 		<unirest.version>1.4.9</unirest.version>
+
 	</properties>
 
 
@@ -209,6 +220,7 @@
 						</rulesets>
 					</configuration>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 

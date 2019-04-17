@@ -15,8 +15,8 @@ public class AppInsightsConfig {
 
 
     @Bean
-    public String telemetryConfig(@Value("${azure.instrumentation.key}") String azureInstrumentationKey) {
-        String telemetryKey = azureInstrumentationKey;
+    public String telemetryConfig() {
+        String telemetryKey = System.getenv("APPLICATION_INSIGHTS_IKEY");
         if (telemetryKey != null) {
             TelemetryConfiguration.getActive().setInstrumentationKey(telemetryKey);
         }

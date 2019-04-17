@@ -35,17 +35,11 @@ public class Tests {
 	@MockBean
 	private RestClient client;
 
-	@Value("${org.aprestos.labs.apis.springboot2.uri.store.scheme}")
-	private String storeScheme;
-	@Value("${org.aprestos.labs.apis.springboot2.uri.store.host}")
-	private String storeHost;
-	@Value("${org.aprestos.labs.apis.springboot2.uri.store.port}")
-	private String storePort;
-	@Value("${org.aprestos.labs.apis.springboot2.uri.store.path}")
-	private String storePath;
+	@Value("${org.aprestos.labs.apis.springboot2.uri.store}")
+	private String storeUri;
 
 	private String getStoreEndpointSingular(){
-		return format("%s://%s:%s%s/{task-id}", storeScheme, storeHost, storePort, storePath);
+		return format("%s/{task-id}", storeUri);
 	}
 
 

@@ -59,15 +59,11 @@
 	<appender name="ASYNC-TRACE-FILE" class="ch.qos.logback.classic.AsyncAppender">
     	<appender-ref ref="TRACE_FILE"/>
 	</appender>
-	<appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
-		<instrumentationKey>1393181f-9b20-4bd8-8443-f6e786e0023d</instrumentationKey>
-	</appender>
 
 	<springProfile name="default, test">
 		<root level="info">
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
-			<appender-ref ref="aiAppender" />
 		</root>
 		<logger name="org.aprestos.labs.api" additivity="true" level="trace">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
@@ -79,7 +75,6 @@
 		<root level="warn">
 			<appender-ref ref="STDOUT" />
 			<appender-ref ref="ASYNC-FILE" />
-			<appender-ref ref="aiAppender" />
 		</root>
 		<logger name="org.aprestos.labs.api" additivity="true" level="info">
 			<appender-ref ref="ASYNC-TRACE-FILE" />
