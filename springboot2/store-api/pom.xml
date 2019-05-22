@@ -216,6 +216,45 @@
 					<generateGitPropertiesFile>true</generateGitPropertiesFile>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${fabric8.docker.maven.plugin.version}</version>
+				<configuration>
+					<registry>registry.hub.docker.com/caquicode</registry>
+					<images>
+						<image>
+							<name>${project.artifactId}:${project.parent.version}</name>
+							<build>
+								<dockerFileDir>${project.basedir}</dockerFileDir>
+							</build>
+
+						</image>
+					</images>
+					<authConfig>
+						<username>jtviegas</username>
+						<password>${DOCKERHUB_PSWD}</password>
+					</authConfig>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>push</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
