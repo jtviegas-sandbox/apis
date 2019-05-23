@@ -221,7 +221,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>${fabric8.docker.maven.plugin.version}</version>
 				<configuration>
-					<registry>registry.hub.docker.com/caquicode</registry>
+					<registry>${dockerhub.registry}</registry>
 					<images>
 						<image>
 							<name>${project.artifactId}:${project.parent.version}</name>

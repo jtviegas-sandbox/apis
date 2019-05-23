@@ -18,14 +18,14 @@ class SolverImpl implements Solver {
 	@Autowired
 	private StateManager<String, Task, TaskStatus> stateManager;
 	@Autowired
-	private ThreadPoolTaskExecutor executor;
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
 	@Override
 	public String solve(Problem problem) {
 		log.trace("[solve|in] problem: {}", problem);
 		String result = null;
 		Task task = new Task(problem);
-		this.executor.submit(new SolverTask(stateManager, task));
+		this.threadPoolTaskExecutor.submit(new SolverTask(stateManager, task));
 		result = task.getId();
 		log.trace("[solve|out] => {}", result);
 		return result;

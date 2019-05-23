@@ -3,11 +3,17 @@
 this_folder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 parent_folder=$(dirname $this_folder)
 
-# include file
-. $this_folder/include.sh
+NAME=api
+IMG=$NAME
+IMG_VERSION=0.0.1-SNAPSHOT
+DOCKER_HUB_REPOSITORY=caquicode
+DOCKER_HUB_IMG=$DOCKER_HUB_REPOSITORY/$IMG:$IMG_VERSION
+CONTAINER=$NAME
+PORT=7710
+DEBUG_PORT=7610
 
-echo "going to run container from image $IMG"
+echo "going to run container from image $DOCKER_HUB_IMG"
 docker rm $CONTAINER
-docker run -d --name $CONTAINER -p $PORT:$PORT $IMG:$IMG_VERSION
+docker run -d --name $CONTAINER -p $PORT:$PORT -p $DEBUG_PORT:$DEBUG_PORT -e DEBUG_PORT=$DEBUG_PORT -e PORT=$PORT $DOCKER_HUB_IMG
 
 echo "... done."

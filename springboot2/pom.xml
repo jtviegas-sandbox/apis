@@ -52,6 +52,7 @@
 		<yasson.version>1.0</yasson.version>
 		<javaee.api.version>8.0</javaee.api.version>
 		<unirest.version>1.4.9</unirest.version>
+		<dockerhub.registry>registry.hub.docker.com/caquicode</dockerhub.registry>
 		<fabric8.docker.maven.plugin.version>0.30.0</fabric8.docker.maven.plugin.version>
 	</properties>
 

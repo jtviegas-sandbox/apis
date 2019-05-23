@@ -1,7 +1,11 @@
 package org.aprestos.labs.apis.springboot2.api.solver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aprestos.labs.apis.springboot2.model.dto.Item;
 import org.aprestos.labs.apis.springboot2.model.dto.Problem;
+import org.aprestos.labs.apis.springboot2.model.dto.Task;
+import org.aprestos.labs.apis.springboot2.model.dto.TaskStatus;
+import org.aprestos.labs.apis.springboot2.statemanager.StateManager;
 import org.aprestos.labs.apis.springboot2.testtools.UtilsModel;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -11,10 +15,15 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,12 +42,16 @@ public class SolverApiTests {
 	@Autowired
 	private ObjectMapper jsonMapper;
 
+	@MockBean
+	private StateManager<String, Task, TaskStatus> stateManager;
+
 	private final String ENDPOINT = "/solver";
 
 	@Test
 	public void test_001_post() throws Exception {
 
 		Problem expected = UtilsModel.createProblem();
+
 		MvcResult response = this.mockMvc.perform(post(ENDPOINT)
 				.contentType("application/json")
 				.content(jsonMapper.writeValueAsString(expected)))
@@ -53,6 +66,8 @@ public class SolverApiTests {
 		mockMvc.perform(post(ENDPOINT).contentType("application/json").content(wrongJson))
 				.andExpect(status().is(422));
 	}
+
+
 
 
 }
