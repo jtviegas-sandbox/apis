@@ -18,7 +18,7 @@
 		<version.war.plugin>2.3</version.war.plugin>
 		<version.javaee.api.javax>7.0</version.javaee.api.javax>
 		<version.org.glassfish.jersey.core>2.22.2</version.org.glassfish.jersey.core>
-		<version.junit>4.11</version.junit>
+		<version.junit>4.13.1</version.junit>
 		<version.org.glassfish.javax.json>1.0.4</version.org.glassfish.javax.json>
 		<version.slf4j>1.7.16</version.slf4j>
 		<version.maven.assembly.plugin>2.4.1</version.maven.assembly.plugin>
